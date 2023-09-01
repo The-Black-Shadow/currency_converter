@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget{
   const HomePage({super.key});
   @override
-  Widget build(BuildContext context) {
+  State<HomePage>createState()=> _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>{
+  double result = 0;
+  final TextEditingController textEditingController = TextEditingController();
+  @override
+  Widget build(BuildContext context){
+    
     const border = OutlineInputBorder(
       borderSide: BorderSide(
         width: 2,
@@ -14,27 +22,33 @@ class HomePage extends StatelessWidget {
       ),
     );
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Currency Converter"),
+        elevation: 0,
+        backgroundColor: Colors.blueGrey,
+      ),
       backgroundColor: Colors.blueGrey,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              '0',
-              style: TextStyle(
-                fontSize: 50,
+            Text(
+              "BDT : $result",
+              style: const TextStyle(
+                fontSize: 40,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 255, 255, 255),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(20),
+             Padding(
+              padding:const EdgeInsets.all(20),
               child: TextField(
-                style: TextStyle(
+                controller: textEditingController,
+                style: const TextStyle(
                   color: Color.fromARGB(255, 0, 0, 0),
                 ),
-                decoration: InputDecoration(
-                  hintText: 'Please input money in BDT',
+                decoration: const InputDecoration(
+                  hintText: 'Please input money in USD',
                   hintStyle: TextStyle(
                     color: Colors.black54,
                   ),
@@ -45,7 +59,7 @@ class HomePage extends StatelessWidget {
                   focusedBorder: border,
                   enabledBorder: border,
                 ),
-                keyboardType: TextInputType.numberWithOptions(
+                keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
                 ),
               ),
@@ -53,9 +67,12 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 50),
               child: ElevatedButton(
-                onPressed: () {
-                  debugPrint('Convert');
+                onPressed:(){
+                  setState(() {
+                    result = double.parse(textEditingController.text) * 115;
+                  });
                 },
+                 
                 style: ButtonStyle(
                   elevation: const MaterialStatePropertyAll(25),
                   backgroundColor: const MaterialStatePropertyAll(Colors.black),
@@ -69,7 +86,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: const Text('Covert'),
+                child: const Text('Convert'),
               ),
             ),
           ],
