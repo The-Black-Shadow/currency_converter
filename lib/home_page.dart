@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "BDT : $result",
+              "BDT : ${result!=0 ? result.toStringAsFixed(2) : result.toStringAsFixed(0)}",
               style: const TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
